@@ -387,7 +387,7 @@ mod tests {
 
     #[test]
     fn test_match_pattern_all_examples() {
-        // INCH against AB
+        // INCH against AB (3 matches)
         let patt = parse_pattern("AB").unwrap();
         let matches = match_pattern_all("INCH", &patt);
         assert_eq!(matches.len(), 3, "Expected 3 matches for INCH with AB");
