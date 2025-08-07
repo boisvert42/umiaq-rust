@@ -384,4 +384,28 @@ mod tests {
         assert!(!word_matches_pattern("TEST", "A~A").unwrap());
         assert!(word_matches_pattern("AARONJUDGE", "A~A[rstlne]/jon@#.*").unwrap());
     }
+
+    #[test]
+    fn test_match_pattern_all_examples() {
+        // INCH against AB
+        let patt = parse_pattern("AB").unwrap();
+        let matches = match_pattern_all("INCH", &patt);
+        assert_eq!(matches.len(), 3, "Expected 3 matches for INCH with AB");
+        for (i, m) in matches.iter().enumerate() {
+            println!("INCH vs AB Match {}: {:?}", i + 1, m);
+        }
+
+        // INCH against AA (should be empty)
+        let patt = parse_pattern("AA").unwrap();
+        let matches = match_pattern_all("INCH", &patt);
+        assert_eq!(matches.len(), 0, "Expected 0 matches for INCH with AA");
+
+        // DEEMED against A*~A
+        let patt = parse_pattern("A*~A").unwrap();
+        let matches = match_pattern_all("DEEMED", &patt);
+        assert_eq!(matches.len(), 2, "Expected 2 matches for DEEMED with A*~A");
+        for (i, m) in matches.iter().enumerate() {
+            println!("DEEMED vs A*~A Match {}: {:?}", i + 1, m);
+        }
+    }
 }
